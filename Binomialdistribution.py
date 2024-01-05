@@ -34,10 +34,10 @@ class Binomial(Distribution):
     
     def __init__(self, prob=.5, size=20):
         
-        # TODO: store the probability of the distribution in an instance variable p
-        # TODO: store the size of the distribution in an instance variable n
+        # DONE: store the probability of the distribution in an instance variable p
+        # DONE: store the size of the distribution in an instance variable n
         
-        # TODO: Now that you know p and n, you can calculate the mean and standard deviation
+        # DONE: Now that you know p and n, you can calculate the mean and standard deviation
         #       Use the calculate_mean() and calculate_stdev() methods to calculate the
         #       distribution mean and standard deviation
         #
@@ -48,7 +48,13 @@ class Binomial(Distribution):
         #               farther down in the code starting in line 55. 
         #               The init function can get access to these methods via the self
         #               variable.   
-        pass            
+        self.p = prob
+        self.n = size
+
+        mu = self.calculate_mean()
+        sigma = self.calculate_stdev()
+
+        Distribution.__init__(self, mu, sigma)            
     
     def calculate_mean(self):
     
@@ -62,12 +68,10 @@ class Binomial(Distribution):
     
         """
         
-        # TODO: calculate the mean of the Binomial distribution. Store the mean
+        # DONE: calculate the mean of the Binomial distribution. Store the mean
         #       via the self variable and also return the new mean value
                 
-        pass 
-
-
+        return self.p * self.n 
 
     def calculate_stdev(self):
 
@@ -81,10 +85,11 @@ class Binomial(Distribution):
     
         """
         
-        # TODO: calculate the standard deviation of the Binomial distribution. Store
+        # DONE: calculate the standard deviation of the Binomial distribution. Store
         #       the result in the self standard deviation attribute. Return the value
         #       of the standard deviation.
-        pass
+
+        return math.sqrt(self.n * self.p * (1 - self.p))
         
         
         
@@ -118,7 +123,11 @@ class Binomial(Distribution):
         #
         #       Hint: You can use the calculate_mean() and calculate_stdev() methods
         #           defined previously.
-        pass
+        self.n = len(self.data)
+        k = self.data.count(1)
+        self.p = k/self.n
+        self.mean = self.calculate_mean()
+        self.stdev = self.calculate_stdev()
         
     def plot_bar(self):
         """Function to output a histogram of the instance variable data using 
@@ -244,11 +253,26 @@ class Binomial(Distribution):
         pass
     
 def main():
-    print("This is a test!")
+    fname = "numbers_binomial.txt"
+
+    print("Gaussian:")
     gaussian_one = Gaussian(25,2)
     gaussian_two = Gaussian(30,5)
     print(gaussian_one)
     print(gaussian_two)
+
+    print("Binomial:")
+    bin_one = Binomial()
+    print(bin_one.mean)
+    print(bin_one.stdev)
+
+    print("Read file:")
+    bin_one.read_data_file(fname)
+    print("Data :")
+    print(bin_one.data)
+    bin_one.replace_stats_with_data()
+    print("n: {}, p: {}".format(bin_one.n, bin_one.p ))
+    print("mu: {}, sigma: {}".format(bin_one.mean, bin_one.stdev))
 
 if __name__ == '__main__':
     main()
