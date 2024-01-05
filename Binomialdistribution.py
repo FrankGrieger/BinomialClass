@@ -106,7 +106,7 @@ class Binomial(Distribution):
     
         """        
         
-        # TODO: The read_data_file() from the Generaldistribution class can read in a data
+        # DONE: The read_data_file() from the Generaldistribution class can read in a data
         #       file. Because the Binomaildistribution class inherits from the Generaldistribution class,
         #       you don't need to re-write this method. However,  the method
         #       doesn't update the mean or standard deviation of
@@ -151,7 +151,16 @@ class Binomial(Distribution):
         #       1 on the x-axis and 20 on the y-axis
         
         #       Make sure to label the chart with a title, x-axis label and y-axis label
-        pass        
+        height = [self.data.count(0), self.data.count(1)]
+        bars = ('0', '1')
+        colors = ['blue', 'purple']
+
+        plt.bar(bars, height, color=colors)
+        plt.title("Data chart")
+        plt.xlabel("result")
+        plt.ylabel("count")
+
+        plt.show()
         
     def pdf(self, k):
         """Probability density function calculator for the gaussian distribution.
@@ -273,6 +282,8 @@ def main():
     bin_one.replace_stats_with_data()
     print("n: {}, p: {}".format(bin_one.n, bin_one.p ))
     print("mu: {}, sigma: {}".format(bin_one.mean, bin_one.stdev))
+
+    bin_one.plot_bar()
 
 if __name__ == '__main__':
     main()
