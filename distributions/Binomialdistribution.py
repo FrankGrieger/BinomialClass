@@ -1,6 +1,6 @@
 import math
 import matplotlib.pyplot as plt
-from distributions import Distribution
+from .Generaldistribution import Distribution
 
 class Binomial(Distribution):
     """ Binomial distribution class for calculating and 
@@ -294,35 +294,4 @@ class Binomial(Distribution):
         #       The method should return a string in the expected format
     
         return "mean {}, standard deviation {}, p {}, n {}".format(self.mean, self.stdev, self.p, self.n)
-    
-def main():
-    fname = "numbers_binomial.txt"
 
-    print("Gaussian:")
-    gaussian_one = Gaussian(25,2)
-    gaussian_two = Gaussian(30,5)
-    print(gaussian_one)
-    print(gaussian_two)
-
-    print("Binomial:")
-    bin_one = Binomial()
-    print(bin_one.mean)
-    print(bin_one.stdev)
-
-    print("Read file:")
-    bin_one.read_data_file(fname)
-    print("Data :")
-    print(bin_one.data)
-    bin_one.replace_stats_with_data()
-    print("n: {}, p: {}".format(bin_one.n, bin_one.p ))
-    print("mu: {}, sigma: {}".format(bin_one.mean, bin_one.stdev))
-    hits = 6
-    print("pdf({}) = {}".format(hits, bin_one.pdf(hits)))
-
-    bin_one.plot_bar()
-    bin_one.plot_bar_pdf()
-
-    print(bin_one)
-
-if __name__ == '__main__':
-    main()
